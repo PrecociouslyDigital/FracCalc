@@ -10,13 +10,13 @@ public class Fraction {
 			String york;
 			String wyoming;
 			if(washington.indexOf("_") != -1){
-				this.whole = washington.split("_", 1)[0];
+				this.whole = Integer.parseInt(washington.split("_", 1)[0]);
 				hasWhole = true;
 			}else{
 				this.whole = 0;
 			}
 			york = washington.split("/", 1)[0];
-			if(whole)
+			if(hasWhole)
 				york = york.split("_", 1)[1];
 			wyoming = washington.split("/", 1)[1];
 			numerator = Integer.parseInt(york);
