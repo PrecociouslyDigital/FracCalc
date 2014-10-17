@@ -3,27 +3,33 @@ package fraccalc.backEnd;
 public class OperatedFraction {
 	public Fraction fraction;
 	public Operator operator;
-        public OperatedFraction(String sandra){
-            switch(sandra.charAt(0)){
+
+    /**
+     * Constructor for a fraction and an operator.
+     * @param input String to be parsed
+     * @throws fraccalc.backEnd.NotAFractionException
+     */
+    public OperatedFraction(String input) throws NotAFractionException{
+            switch(input.charAt(0)){
                 case '+':
                     this.operator = Operator.plus;
-                    this.fraction = new Fraction(sandra.substring(1));
+                    this.fraction = new Fraction(input.substring(1));
                     break;
                 case '-':
                    this.operator = Operator.minus;
-                   this.fraction = new Fraction(sandra.substring(1));
+                   this.fraction = new Fraction(input.substring(1));
                    break;
                 case '/':
                    this.operator = Operator.divide;
-                   this.fraction = new Fraction(sandra.substring(1));
+                   this.fraction = new Fraction(input.substring(1));
                    break;
                 case '*':
                    this.operator = Operator.times;
-                   this.fraction = new Fraction(sandra.substring(1));
+                   this.fraction = new Fraction(input.substring(1));
                    break;
                 default:
                     this.operator = Operator.none;
-                    this.fraction = new Fraction(sandra);
+                    this.fraction = new Fraction(input);
             }
             
         }
@@ -38,6 +44,7 @@ public class OperatedFraction {
         public Fraction evaulate(Fraction panda){
             switch (operator){
                 case plus:
+                    
                     
             }
         }
