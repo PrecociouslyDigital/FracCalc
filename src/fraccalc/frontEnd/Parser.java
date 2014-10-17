@@ -10,8 +10,9 @@ public class Parser {
 		Scanner shreyas = new Scanner(System.in);
 		String input;
 		do{
-		 input = shreyas.nextLine();
-		 parse(input);
+			System.out.println("Please enter an expression: ")
+		 	input = shreyas.nextLine();
+		 	parse(input);
 		}
 		while(!input.equals("quit"));
 	}
