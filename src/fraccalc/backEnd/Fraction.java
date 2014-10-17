@@ -36,7 +36,26 @@ public class Fraction {
             this.numerator = numerator;
             this.denominator = denominator;
         }
-        public Fraction toImproper(Fraction fraction){
+        public Fraction improper(){
+            return new Fraction(0,numerator + whole*denominator, denominator);
+        }
+        public Fraction mixed(){
+            return new Fraction(whole + numerator%denominator, numerator % denominator, denominator);
+        }
+        public void toImproper(){
+            this.takeValue(this.improper());
+        }
+        public void toMixed(){
+            this.takeValue(this.mixed());
+        }
+        public void takeValue(Fraction fraction){
+            this.numerator = fraction.numerator;
+            this.denominator = fraction.denominator;
+            this.whole = fraction.whole;
+        }
+        public Fraction multiply(Fraction fraction){
+            fraction.toImproper();
+            return new Fraction(0, fraction.numerator * this.improper().numerator, fraction.denominator * this.improper().denominator);
             
         }
 }
