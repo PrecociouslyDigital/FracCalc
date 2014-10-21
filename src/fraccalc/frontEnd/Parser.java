@@ -3,6 +3,7 @@ package fraccalc.frontEnd;
 import java.util.Scanner;
 import java.util.Random;
 import fraccalc.backEnd.Fraction;
+import fraccalc.backEnd.NotAFractionException;
 
 public class Parser {
 
@@ -14,8 +15,10 @@ public class Parser {
 			System.out.println("Please enter an expression: ");
 		 	input = shreyas.nextLine();
 		 	parse(input);
+                        if(input.compareToIgnoreCase("test") == 0)
+                            test();
 		}
-		while((input.compareToIgnoreCase("quit") != 0) &&(input.compareToIgnoreCase("exit") != 0) );
+		while((input.compareToIgnoreCase("quit") != 0) &&(input.compareToIgnoreCase("exit") != 0));
                 System.out.println("Bye!");
                 
 	}
@@ -30,4 +33,28 @@ public class Parser {
 		
 		return null;
 	}
+        public static void test(){
+    try{
+            Fraction test1 = new Fraction(1,0,1);
+
+            Fraction test4 = new Fraction("1_2/3");
+            Fraction test5 = new Fraction("1");
+            Fraction test6 = new Fraction("2/3");
+
+            System.out.println(test1.toString());
+
+            System.out.println(test4.toString());
+            System.out.println(test5.toString());
+            System.out.println(test6.toString());
+
+                        /*Fraction test3 = new Fraction("Hello world");
+                                    Fraction test7 = new Fraction("2/0");
+                                                System.out.println(test3.toString());
+                                                            System.out.println(test7.toString());*/
+    }catch(NotAFractionException e){
+        System.out.println(e.reason);
+    }finally{
+    
+}
+}
 }

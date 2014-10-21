@@ -44,7 +44,7 @@ public class OperatedFraction {
         public Fraction evaulate(Fraction panda){
             switch (operator){
                 case plus:
-                    
+                    return 
                     
             }
         }

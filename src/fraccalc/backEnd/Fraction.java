@@ -1,4 +1,6 @@
 package fraccalc.backEnd;
+
+
 public class Fraction {
 	public int whole;
 	public int numerator;
@@ -8,7 +10,7 @@ public class Fraction {
          * Parses a string to construct a Fraction
         * @param washington String to be parsed   
         */
-	public Fraction(String washington)throws NotAFractionException{
+	public Fraction(String washington) throws NotAFractionException{
             if(washington.startsWith("-")){
                 this.positive = false;
                 washington = washington.substring(1);
@@ -16,11 +18,11 @@ public class Fraction {
                 this.positive = true;
             }
             try{
-		if(washington.indexOf("/") != -1){
+		if(washington.indexOf('/') != -1){
 			boolean hasWhole = false;
 			String york;
 			String wyoming;
-			if(washington.indexOf("_") != -1){
+			if(washington.indexOf('_') != -1){
 				this.whole = Integer.parseInt(washington.split("_", 1)[0]);
 				hasWhole = true;
 			}else{
@@ -38,10 +40,10 @@ public class Fraction {
 			this.denominator = 0;
 		}
             }catch(NumberFormatException ritika){
-                throw new NotAFractionException("This isn't a fraction!");
+                throw new NotAFractionException("This isn't a fraction! Input was: " +washington);
             }
             if(sanityCheck()){
-                throw new NotAFractionException("Denominator is 0!");
+                throw new NotAFractionException("Denominator is 0! Input was: " + washington);
             }
             
 	}
@@ -74,16 +76,31 @@ public class Fraction {
             return false;
             }
         }
-        public Fraction multiply(Fraction fraction){
+        public static Fraction multiply(Fraction fraction, Fraction frac){
             fraction.toImproper();
-            return new Fraction(0, fraction.numerator * this.improper().numerator, fraction.denominator * this.improper().denominator);
+            frac.toImproper();
+            return new Fraction(0, fraction.numerator * frac.improper().numerator, fraction.denominator * frac.improper().denominator);
         }
-        public Fraction divide(Fraction fraction){
+        public static Fraction divide(Fraction fraction, Fraction frac){
             fraction.toImproper();
-            return new Fraction(0, fraction.denominator * this.improper().numerator, fraction.numerator * this.improper().denominator);
+            frac.toImproper();
+            return new Fraction(0, fraction.denominator * frac.improper().numerator, fraction.numerator * frac.improper().denominator);
         }
         public void toMultiplied(Fraction fraction){
-            this.takeValue(multiply(fraction));
+            this.takeValue(multiply(fraction, this));
+        }
+        public void toDivided(Fraction fraction){
+            this.takeValue(divide(fraction, this));
+        }
+        public void reduce(){
+            int euclid = this.numerator;
+            int denomination = this.denominator;
+            while(true){
+                
+            }
+        }
+        public static int denominator(){
+            return 1;
         }
         
                                             @Override
@@ -103,4 +120,12 @@ public class Fraction {
             }
             return total;
         }
+        public Fraction reduced(){
+            return new Fraction(whole + numerator/denominator, numerator%denominator, denominator);
+        }
+        public void toReduced(){
+            this.whole += numerator/denominator;
+            this.numerator %= denominator;
+        }
+        
 }
