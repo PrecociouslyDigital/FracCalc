@@ -35,17 +35,21 @@ public class Parser {
 	}
         public static void test(){
     try{
-            Fraction test1 = new Fraction(1,0,1);
-
+           Fraction test1 = new Fraction(1,0,1);
+            
             Fraction test4 = new Fraction("1_2/3");
             Fraction test5 = new Fraction("1");
             Fraction test6 = new Fraction("2/3");
-
             System.out.println(test1.toString());
-
             System.out.println(test4.toString());
             System.out.println(test5.toString());
             System.out.println(test6.toString());
+            System.out.println(Fraction.multiply(test6, test5).toString());
+            System.out.println(Fraction.divide(test1, test4).toString());
+                        Fraction test2 = new Fraction(1,0,0);
+                                    System.out.println(test2.toString());
+            Fraction test3 = new Fraction("Hello world");
+
 
                         /*Fraction test3 = new Fraction("Hello world");
                                     Fraction test7 = new Fraction("2/0");

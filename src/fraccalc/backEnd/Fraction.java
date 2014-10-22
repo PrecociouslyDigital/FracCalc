@@ -38,12 +38,15 @@ public class Fraction {
 			*/
 			int underscore = washington.indexOf("_");	
 			if(underscore == -1){
-				splitted = washington.split("/",1);
-				this.numerator = splitted[0];
-				this.numerator = splitted[1];
+				String[] splitted = washington.split("/",2);
+				this.numerator = Integer.parseInt(splitted[0]);
+				this.denominator = Integer.parseInt(splitted[1]);
 			}else{
-				this.whole = Integer.parseInt(washington.substring(0, underscore-1);
-				this.numerator = Integer.parseInt(washington.substring(underscore+1,slash-1);
+                           /* System.out.println(washington.substring(0, underscore-1));
+                            System.out.println(washington.substring(underscore+1,slash-1));
+                                    System.out.println(washington.substring(slash+1));*/
+				this.whole = Integer.parseInt(washington.substring(0, underscore));
+				this.numerator = Integer.parseInt(washington.substring(underscore+1,slash));
 				this.denominator = Integer.parseInt(washington.substring(slash+1));
 			}
 		}else{
@@ -59,10 +62,17 @@ public class Fraction {
             }
             
 	}
+        public Fraction(boolean positive, int whole, int numerator, int denominator){
+            this.whole = whole;
+            this.numerator = numerator;
+            this.denominator = denominator;
+            this.positive = positive;
+        }
         public Fraction(int whole, int numerator, int denominator){
             this.whole = whole;
             this.numerator = numerator;
             this.denominator = denominator;
+            this.positive = true;
         }
         public Fraction improper(){
             return new Fraction(0,numerator + whole*denominator, denominator);
@@ -82,11 +92,7 @@ public class Fraction {
             this.whole = fraction.whole;
         }
         public boolean sanityCheck(){
-            if(this.denominator == 0){
-                return true;
-            }else{
-            return false;
-            }
+            return this.denominator == 0;
         }
         public static Fraction multiply(Fraction fraction, Fraction frac){
             fraction.toImproper();

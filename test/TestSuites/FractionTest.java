@@ -22,14 +22,15 @@ public void test(){
             Fraction test4 = new Fraction("1_2/3");
             Fraction test5 = new Fraction("1");
             Fraction test6 = new Fraction("2/3");
-            Fraction test7 = new Fraction("2/0");
             System.out.println(test1.toString());
             System.out.println(test2.toString());
             System.out.println(test3.toString());
             System.out.println(test4.toString());
             System.out.println(test5.toString());
             System.out.println(test6.toString());
-            System.out.println(test7.toString());
+            System.out.println(Fraction.multiply(test6, test5).toString());
+            System.out.println(Fraction.divide(test3, test2).toString());
+            
     }catch(NotAFractionException e){
         System.out.println(e.reason);
     }finally{
