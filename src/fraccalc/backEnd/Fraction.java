@@ -32,8 +32,9 @@ public class Fraction {
 			if(hasWhole)
 				york = york.split("_", 1)[1];
 			wyoming = washington.split("/", 1)[1];
-			numerator = Integer.parseInt(york);
-			denominator = Integer.parseInt(wyoming);
+			this.numerator = Integer.parseInt(york);
+			this.denominator = Integer.parseInt(wyoming);
+			
 		}else{
 			this.whole = Integer.parseInt(washington);
 			this.numerator = 0;
