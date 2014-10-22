@@ -18,7 +18,8 @@ public class Fraction {
                 this.positive = true;
             }
             try{
-		if(washington.indexOf('/') != -1){
+            	int slash = washington.indexOf('/');
+		if(slash != -1){/*
 			boolean hasWhole = false;
 			String york;
 			String wyoming;
@@ -34,14 +35,24 @@ public class Fraction {
 			wyoming = washington.split("/", 1)[1];
 			this.numerator = Integer.parseInt(york);
 			this.denominator = Integer.parseInt(wyoming);
-			
+			*/
+			int underscore = washington.indexOf("_");	
+			if(underscore == -1){
+				splitted = washington.split("/",1);
+				this.numerator = splitted[0];
+				this.numerator = splitted[1];
+			}else{
+				this.whole = Integer.parseInt(washington.substring(0, underscore-1);
+				this.numerator = Integer.parseInt(washington.substring(underscore+1,slash-1);
+				this.denominator = Integer.parseInt(washington.substring(slash+1));
+			}
 		}else{
 			this.whole = Integer.parseInt(washington);
 			this.numerator = 0;
-			this.denominator = 0;
+			this.denominator = 1;
 		}
-            }catch(NumberFormatException ritika){
-                throw new NotAFractionException("This isn't a fraction! Input was: " +washington);
+            }catch(NumberFormatException exception){
+                throw new NotAFractionException("This isn't a fraction! Input was: " + washington);
             }
             if(sanityCheck()){
                 throw new NotAFractionException("Denominator is 0! Input was: " + washington);
