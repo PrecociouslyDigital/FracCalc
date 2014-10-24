@@ -53,8 +53,9 @@ public class Fraction {
         this.denominator = denominator;
         this.positive = positive;
         if (sanityCheck()) {
-            System.out.println("Denominator is zero! Value set to zero.");
-            this.takeValue(zero);
+            System.out.println("Denominator is zero! Value set to whole part.");
+            this.numerator = 0;
+            this.denominator = 1;
         }
         this.reduce();
     }
@@ -65,8 +66,9 @@ public class Fraction {
         this.denominator = denominator;
         this.positive = true;
         if (sanityCheck()) {
-            System.out.println("Denominator is zero! Value set to zero.");
-            this.takeValue(zero);
+            System.out.println("Denominator is zero! Value set to whole part.");
+            this.numerator = 0;
+            this.denominator = 1;
         }
         this.reduce();
     }
