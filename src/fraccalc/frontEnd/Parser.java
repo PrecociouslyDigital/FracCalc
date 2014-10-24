@@ -50,84 +50,6 @@ public class Parser {
             openParentheses = input.indexOf("(");
             closeParentheses = input.indexOf(")");
         }
-        /*ArrayList<Integer> pluses = new ArrayList();
-         ArrayList<Integer> minuses = new ArrayList();
-         ArrayList<Integer> timeses = new ArrayList();
-         ArrayList<Integer> divides = new ArrayList();
-         ArrayList<Integer> operators = new ArrayList();
-         for(int i = 0; i < input.length(); i++){
-         switch(input.charAt(i)){
-         case '+':
-         pluses.add(i);
-         operators.add(i);
-         break;
-         case '-':
-         minuses.add(i);
-         operators.add(i);
-         break;
-         case '*':
-         timeses.add(i);
-         operators.add(i);
-         break;
-         case '/':
-         divides.add(i);
-         operators.add(i);
-         break;
-         }
-         }
-         String working;
-         if(operators.isEmpty())
-         try {
-         return new Fraction(input);
-         } catch (NotAFractionException ex) {
-         System.out.println(ex.reason);
-         }
-         while(!timeses.isEmpty()){
-         working = input.substring(0,operators.get(timeses.get(0)-1));
-         try {
-         working += Fraction.multiply(new Fraction(input.substring(operators.get(timeses.get(0)-1))),new Fraction(input.substring(operators.get(timeses.get(0)+1))));
-         } catch (NotAFractionException ex) {
-         System.out.println(ex.reason);
-         return Fraction.zero;
-         }
-         working += input.substring(operators.get(timeses.get(0)+1));
-         timeses.remove(0);
-         input = working;
-         }while(!divides.isEmpty()){
-         working = input.substring(0,operators.get(divides.get(0)-1));
-         try {
-         working += Fraction.divide(new Fraction(input.substring(operators.get(divides.get(0)-1))),new Fraction(input.substring(operators.get(divides.get(0)+1))));
-         } catch (NotAFractionException ex) {
-         System.out.println(ex.reason);
-         return null;
-         }
-         working += input.substring(operators.get(divides.get(0)+1));
-         divides.remove(0);
-         input = working;
-         }while(!pluses.isEmpty()){
-         working = input.substring(0,operators.get(pluses.get(0)-1));
-         try {
-         working += Fraction.divide(new Fraction(input.substring(operators.get(pluses.get(0)-1))),new Fraction(input.substring(operators.get(pluses.get(0)+1))));
-         } catch (NotAFractionException ex) {
-         System.out.println(ex.reason);
-         return null;
-         }
-         working += input.substring(operators.get(pluses.get(0)+1));
-         pluses.remove(0);
-         input = working;
-         }while(!minuses.isEmpty()){
-         working = input.substring(0,operators.get(minuses.get(0)-1));
-         try {
-         working += Fraction.divide(new Fraction(input.substring(operators.get(minuses.get(0)-1))),new Fraction(input.substring(operators.get(minuses.get(0)+1))));
-         } catch (NotAFractionException ex) {
-         System.out.println(ex.reason);
-         return null;
-         }
-         working += input.substring(operators.get(minuses.get(0)+1));
-         minuses.remove(0);
-         input = working;
-         }*/
-
         ArrayList<String> expressions = new ArrayList<String>(Arrays.asList(input.split(" ")));
         try {
             for (int i = 1; i < expressions.size() - 1; i += 2) {
@@ -209,12 +131,6 @@ public class Parser {
             Fraction test2 = new Fraction(1, 0, 0);
             System.out.println(test2.toString());
             Fraction test3 = new Fraction("Hello world");
-
-
-            /*Fraction test3 = new Fraction("Hello world");
-             Fraction test7 = new Fraction("2/0");
-             System.out.println(test3.toString());
-             System.out.println(test7.toString());*/
         } catch (NotAFractionException e) {
             System.out.println(e.reason);
         } finally {
