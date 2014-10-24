@@ -56,6 +56,7 @@ public class Fraction {
             System.out.println("Denominator is zero! Value set to zero.");
             this.takeValue(zero);
         }
+        this.reduce();
     }
 
     public Fraction(int whole, int numerator, int denominator) {
@@ -67,7 +68,7 @@ public class Fraction {
             System.out.println("Denominator is zero! Value set to zero.");
             this.takeValue(zero);
         }
-
+        this.reduce();
     }
 
     public Fraction improper() {
@@ -173,7 +174,7 @@ public class Fraction {
         }
         this.positive = true;
     }
-
+    
     @Override
     public String toString() {
         String total = "";
