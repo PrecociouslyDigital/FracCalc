@@ -47,6 +47,14 @@ public class Fraction {
 
     }
 
+    /**
+     * Fraction constructor
+     *
+     * @param positive is it positive?
+     * @param whole whole part of fraction
+     * @param numerator numerator of fraction
+     * @param denominator denominator of fraction
+     */
     public Fraction(boolean positive, int whole, int numerator, int denominator) {
         this.whole = whole;
         this.numerator = numerator;
@@ -59,7 +67,12 @@ public class Fraction {
         }
         this.reduce();
     }
-
+    /**
+     * Fraction constructor, assuming the fraction is positive
+     * @param whole whole part of fraction
+     * @param numerator numerator of fraction
+     * @param denominator denominator of fraction
+     */
     public Fraction(int whole, int numerator, int denominator) {
         this.whole = whole;
         this.numerator = numerator;
@@ -72,15 +85,23 @@ public class Fraction {
         }
         this.reduce();
     }
-
+/**
+ * returns the improper form of a fraction
+ * @return improper form of fraction
+ */
     public Fraction improper() {
         return new Fraction(0, numerator + whole * denominator, denominator);
     }
-
+/**
+ * returns the mixed number form of a fraction
+ * @return mixed number form of fraction
+ */
     public Fraction mixed() {
         return new Fraction(whole + numerator / denominator, numerator % denominator, denominator);
     }
-
+/**
+ * turns the fraction into an improper fraction
+ */
     public void toImproper() {
         this.takeValue(this.improper());
     }
@@ -88,34 +109,56 @@ public class Fraction {
     public void toMixed() {
         this.takeValue(this.mixed());
     }
-
+/**
+ * turns the fraction into an mixed number fraction
+ */
+/**
+ * makes a fraction take the value of another fraction
+ * @param fraction fraction whose value should be taken
+ */
     public void takeValue(Fraction fraction) {
         this.numerator = fraction.numerator;
         this.denominator = fraction.denominator;
         this.whole = fraction.whole;
     }
-
+/**
+ * makes sure the denominator isn't zero
+ * @return whether the denominator is zero
+ */
     public boolean sanityCheck() {
         return this.denominator == 0;
     }
+    /**
+     * correctly formats the fraction for output.
+     */
 
     public void format() {
         this.toMixed();
         this.reduce();
     }
-
+/**
+ * multiplies two fractions
+ * @param fraction fraction to be multiplied
+ * @param frac fraction to be multiplied
+ * @return multiplied value 
+ */
     public static Fraction multiply(Fraction fraction, Fraction frac) {
         fraction.toImproper();
         frac.toImproper();
         return new Fraction(0, fraction.numerator * frac.improper().numerator, fraction.denominator * frac.improper().denominator);
     }
-
+/**
+ * divides two fractions
+ * @param fraction fraction to be divided
+ * @param frac fraction that will be the divisor
+ * @return divided value 
+ */
     public static Fraction divide(Fraction fraction, Fraction frac) {
         fraction.toImproper();
         frac.toImproper();
         return new Fraction(0, fraction.denominator * frac.improper().numerator, fraction.numerator * frac.improper().denominator);
     }
-
+/*
     public void toMultiplied(Fraction fraction) {
         this.takeValue(multiply(fraction, this));
     }
@@ -123,7 +166,13 @@ public class Fraction {
     public void toDivided(Fraction fraction) {
         this.takeValue(divide(fraction, this));
     }
-
+*/
+    /**
+     * adds two fractions together
+     * @param fraction fraction to be added
+     * @param frac fraction to be added
+     * @return added value
+     */
     public static Fraction add(Fraction fraction, Fraction frac) {
         fraction.reduce();
         frac.reduce();
@@ -134,7 +183,12 @@ public class Fraction {
         frac.takeDenomValue(commonMultiple);
         return new Fraction(fraction.whole + frac.whole, fraction.numerator + frac.numerator, commonMultiple);
     }
-
+    /**
+     * subtracts two fractions
+     * @param fraction fraction to be subtracted
+     * @param frac fraction to be from the first
+     * @return subtracted value
+     */
     public static Fraction subtract(Fraction fraction, Fraction frac) {
         fraction.reduce();
         frac.reduce();
@@ -145,7 +199,9 @@ public class Fraction {
         frac.takeDenomValue(commonMultiple);
         return new Fraction(fraction.whole - frac.whole, fraction.numerator - frac.numerator, commonMultiple);
     }
-
+    /**
+     * reduces a fraction's numerator and denominator
+     */
     public void reduce() {
         if (this.whole < 0) {
             this.whole = -this.whole;
@@ -163,12 +219,19 @@ public class Fraction {
         this.numerator /= reducingFactor;
         this.denominator /= reducingFactor;
     }
-
+/**
+ * scales a fractions denominator and numerator so that the denominator is a certain value.
+ * if value is not a multiple of the current denominator, if will default to the largest multiple
+ * of the current denominator lesser than value
+ * @param value value for the denominator to be
+ */
     private void takeDenomValue(int value) {
         numerator *= value / denominator;
         denominator = value;
     }
-
+/**
+ * applies a fraction's sign to its numbers
+ */
     public void applySign() {
         if (!this.positive) {
             this.whole = -this.whole;
@@ -176,9 +239,15 @@ public class Fraction {
         }
         this.positive = true;
     }
-    
+/**
+ * creates the string representation of the fraction
+ * 
+ * @return the string representation of the fraction.
+ */
+
     @Override
     public String toString() {
+        this.format();
         String total = "";
         if (!positive) {
             total = "-";
