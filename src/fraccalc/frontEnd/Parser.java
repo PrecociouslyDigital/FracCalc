@@ -18,7 +18,8 @@ public class Parser {
             if (input.compareToIgnoreCase("quit") == 0 || input.compareToIgnoreCase("exit") == 0) {
                 System.out.println("Bye!");
                 console.close();
-            }else if (input.compareToIgnoreCase("test") == 0) {
+                System.exit(0);
+            } else if (input.compareToIgnoreCase("test") == 0) {
                 test();
             } else {
                 output = parse(input);
@@ -66,7 +67,7 @@ public class Parser {
         //input = input.replaceAll("\\s+","");
         int openParentheses = input.indexOf("(");
         int closeParentheses = -1;
-        String stored = "";
+        String stored;
         //recursively getting rid of what's in parenthathes
         while (openParentheses != -1) {
             boolean found = false;
@@ -82,7 +83,7 @@ public class Parser {
                             found = true;
                             break;
                         }
-                }
+                }//break after finding matched parentheses
                 if (found) {
                     break;
                 }
@@ -221,7 +222,7 @@ public class Parser {
         testAgainst("2_2/3 * (1/2 + 1_1/2)", "5_1/3");
         //Making sure nested parentheses work
         testAgainst("((1 + 3) * (1 + 2)) * 2", "24");
-        testAgainst("((1_1/2 + 3_1/2) * (2_2/3 + 1_1/3)) * (2_2/3 - 2)", "13_1/3");
+        testAgainst("((1_1/2 + 3_1/2) + (2_2/3 + 1_1/3)) * (2_2/3 - 2)", "6");
     }
 
     /**
