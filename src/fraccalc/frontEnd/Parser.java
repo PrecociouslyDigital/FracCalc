@@ -21,7 +21,9 @@ public class Parser {
                 System.exit(0);
             } else if (input.compareToIgnoreCase("test") == 0) {
                 test();
-            } else {
+            } else if(input.compareToIgnoreCase("help") == 0){
+                help();
+            }else {
                 output = parse(input);
                 if (output != null) {
                     System.out.println(output.toString());
@@ -31,7 +33,17 @@ public class Parser {
         }
 
     }
-
+    /**
+     * Adds a help command to the program.
+     * */
+    public static void help(){
+            File file = new File("help.txt");
+            Scanner in = new Scanner(file);
+            while(in.hasNextLine(){
+                System.out.println(in.nextLine());        
+            }    
+        
+    }
     /**
      * Parses then evaluates the string given, then returns it as a fraction
      * <p>
