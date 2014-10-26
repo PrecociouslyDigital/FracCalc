@@ -4,7 +4,7 @@ package fraccalc.backEnd;
  * A custom exception to handle things that go wrong
  *
  * @author precociouslyDigital
-*
+ *
  */
 public class NotAFractionException extends Exception {
 
@@ -12,6 +12,10 @@ public class NotAFractionException extends Exception {
      * Generated Exception ID
      */
     private static final long serialVersionUID = 999175742470233017L;
+
+    /**
+     *
+     */
     public String reason;
 
     /**

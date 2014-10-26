@@ -35,10 +35,13 @@ public class Parser {
     /**
      * Parses then evaluates the string given, then returns it as a fraction
      * <p>
-     * The method puts together
+     * The method puts together the processParentheses and evaluate methods and
+     * handles some problems they have.
      *
      * @param input The string to be parsed
      * @return The fraction that is the evaluated expression
+     * @see processParentheses
+     * @see evaluate
      */
     public static Fraction parse(String input) {
         input = input.trim();

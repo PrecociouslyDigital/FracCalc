@@ -1,17 +1,36 @@
 package fraccalc.backEnd;
 
+/**
+ *
+ * @author bendpalias
+ */
 public class Fraction {
 
+    /**
+     * Whole part of fraction
+     */
     public int whole;
+
+    /**
+     * Numerator of fraction
+     */
     public int numerator;
+
+    /**
+     * Denominator of Fraction
+     */
     public int denominator;
+
+    /**
+     * Positivity of Fraction
+     */
     public boolean positive;
-    public static final Fraction zero = new Fraction(0, 0, 1);
 
     /**
      * Parses a string to construct a Fraction
      *
      * @param input String to be parsed
+     * @throws fraccalc.backEnd.NotAFractionException
      */
     public Fraction(String input) throws NotAFractionException {
         if (input.startsWith("-")) {
@@ -113,6 +132,9 @@ public class Fraction {
         this.takeValue(this.improper());
     }
 
+    /**
+     *
+     */
     public void toMixed() {
         this.takeValue(this.mixed());
     }
@@ -143,7 +165,6 @@ public class Fraction {
     /**
      * correctly formats the fraction for output.
      */
-
     public void format() {
         this.toMixed();
         this.reduce();
@@ -261,7 +282,6 @@ public class Fraction {
      *
      * @return the string representation of the fraction.
      */
-
     @Override
     public String toString() {
         this.format();
