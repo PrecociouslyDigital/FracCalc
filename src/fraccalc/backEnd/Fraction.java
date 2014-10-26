@@ -174,15 +174,6 @@ public class Fraction {
         frac.toImproper();
         return new Fraction(0, fraction.denominator * frac.improper().numerator, fraction.numerator * frac.improper().denominator);
     }
-    /*
-     public void toMultiplied(Fraction fraction) {
-     this.takeValue(multiply(fraction, this));
-     }
-
-     public void toDivided(Fraction fraction) {
-     this.takeValue(divide(fraction, this));
-     }
-     */
 
     /**
      * adds two fractions together
