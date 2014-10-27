@@ -22,6 +22,7 @@ public class FrontEnd {
         String input;
         Fraction output;
         String prevAns = "0";
+        System.out.println("Type in help for help or test to test. Type in quit or exit to quit");
         while (true) {
             System.out.println("Please enter an expression: ");
             input = console.nextLine();

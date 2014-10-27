@@ -235,7 +235,7 @@ public class Parser {
             System.out.println(expression + " evaluated correctly");
         }
         }else{
-            System.out.println(expression + " returned null.");
+            System.out.println(expression + " returned null. Should do so for exceptions.");
         }
     }
 }
