@@ -133,7 +133,7 @@ public class Fraction {
     }
 
     /**
-     *
+     * turns the fraction into a mixed number
      */
     public void toMixed() {
         this.takeValue(this.mixed());
@@ -180,20 +180,32 @@ public class Fraction {
     public static Fraction multiply(Fraction fraction, Fraction frac) {
         fraction.toImproper();
         frac.toImproper();
-        return new Fraction(0, fraction.numerator * frac.improper().numerator, fraction.denominator * frac.improper().denominator);
+        return new Fraction(!fraction.positive ^ frac.positive,
+                0,
+                fraction.numerator * frac.numerator,
+                fraction.denominator * frac.denominator
+        );
     }
 
     /**
      * divides two fractions
      *
-     * @param fraction fraction to be divided
-     * @param frac fraction that will be the divisor
+     * @param operator1 fraction to be divided
+     * @param operator2 fraction that will be the divisor
      * @return divided value
      */
-    public static Fraction divide(Fraction fraction, Fraction frac) {
-        fraction.toImproper();
-        frac.toImproper();
-        return new Fraction(0, fraction.denominator * frac.improper().numerator, fraction.numerator * frac.improper().denominator);
+    public static Fraction divide(Fraction operator1, Fraction operator2) throws NotAFractionException {
+        if (operator2.numerator == 0 && operator2.whole == 0) {
+            throw new NotAFractionException("Dividing by zero!");
+        } else {
+            operator1.toImproper();
+            operator2.toImproper();
+            return new Fraction(!operator1.positive ^ operator2.positive,
+                    0,
+                    operator1.numerator * operator2.denominator,
+                    operator1.denominator * operator2.numerator
+            );
+        }
     }
 
     /**
@@ -206,12 +218,18 @@ public class Fraction {
     public static Fraction add(Fraction fraction, Fraction frac) {
         fraction.reduce();
         frac.reduce();
+        fraction.toImproper();
+        frac.toImproper();
         fraction.applySign();
         frac.applySign();
         int commonMultiple = lcm(fraction.denominator, frac.denominator);
         fraction.takeDenomValue(commonMultiple);
         frac.takeDenomValue(commonMultiple);
-        return new Fraction(fraction.whole + frac.whole, fraction.numerator + frac.numerator, commonMultiple);
+        Fraction output = new Fraction(fraction.whole + frac.whole,
+                fraction.numerator + frac.numerator,
+                commonMultiple);
+        //output.format();
+        return output;
     }
 
     /**
@@ -224,18 +242,33 @@ public class Fraction {
     public static Fraction subtract(Fraction fraction, Fraction frac) {
         fraction.reduce();
         frac.reduce();
+        fraction.toImproper();
+        frac.toImproper();
         fraction.applySign();
         frac.applySign();
         int commonMultiple = lcm(fraction.denominator, frac.denominator);
         fraction.takeDenomValue(commonMultiple);
         frac.takeDenomValue(commonMultiple);
-        return new Fraction(fraction.whole - frac.whole, fraction.numerator - frac.numerator, commonMultiple);
+        return new Fraction(fraction.whole - frac.whole,
+                fraction.numerator - frac.numerator,
+                commonMultiple);
     }
 
     /**
      * reduces a fraction's numerator and denominator
      */
     public void reduce() {
+        handlePositivity();
+        formatReduce();
+    }
+
+    public void formatReduce() {
+        int reducingFactor = gcd(this.numerator, this.denominator);
+        this.numerator /= reducingFactor;
+        this.denominator /= reducingFactor;
+    }
+
+    public void handlePositivity() {
         if (this.whole < 0) {
             this.whole = -this.whole;
             this.positive = !this.positive;
@@ -248,9 +281,6 @@ public class Fraction {
             this.denominator = -this.denominator;
             this.positive = !this.positive;
         }
-        int reducingFactor = gcd(this.numerator, this.denominator);
-        this.numerator /= reducingFactor;
-        this.denominator /= reducingFactor;
     }
 
     /**
@@ -287,7 +317,7 @@ public class Fraction {
         this.format();
         String total = "";
         if (!positive) {
-            total = "-";
+            total += "-";
         }
         if (whole != 0) {
             total += whole;

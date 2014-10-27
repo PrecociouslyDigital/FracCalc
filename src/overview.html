@@ -1,0 +1,14 @@
+<body>
+This program takes a fractional expression and evaulates it.
+
+Fractions should be of the form whole_numerator/denominator. They should be delimited from the operators by at least one space.
+Parentheses do not need to be delimited from fractions.
+when inputted, ans will be replaced by the answer of the previous entered valid expression. It defaults to zero.
+If the input is quit or exit, the program will exit.
+If the input is help, the program will print out help.txt
+
+The program firstly checks to see if the input is help or quit. If it is, the input goes to one of those special cases.
+Elsewise, the program will try to parse the expression given. The input is given to Parser.parse(). parse will first pass the expression to processParentheses.
+If there are parentheses, processParentheses will pass the isolated expression back to parse, recursively getting rid of everything inside parentheses.
+After that is done, the string without parentheses is passed to evaulate(), which the evaulates the expression.
+</body>

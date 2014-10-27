@@ -1,0 +1,37 @@
+Welcome to Benjamin's Fraccalc!
+This program is designed to satisfy all of your fractional calculational needs.
+This program can handle addition, subtraction, multiplication and division of fractions.
+It will do this with order of operations, as well as process parentheses
+Fractions can follow this format:
+1_2/3
+This represents the fraction one and two-thirds.
+Fractions can also be represented as improper fractions, in this format:
+2/3 
+This represents two-thirds
+Finally, fractions can simply be a whole number
+1
+This represents 1
+
+Fractions should be seperated from operators by at least one space. Extra spaces are not nessecary, but valid.
+
+1_2/3 + 1_2/3
+
+This is valid
+
+1_2/3         +     1_2/3
+
+This is valid
+
+1_2/3+ 1_2/3
+
+This is not valid
+
+Parentheses can be seperated by spaces from fractions, but do not have to be.
+Fractions should not have spaces in them.
+
+the letters ans will be replaced with the value of the last valid expression. (zero by default).
+
+Enter quit or exit to quit.
+
+Enter help for this help message.
+

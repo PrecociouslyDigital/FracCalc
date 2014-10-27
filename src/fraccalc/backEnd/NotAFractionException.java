@@ -14,7 +14,7 @@ public class NotAFractionException extends Exception {
     private static final long serialVersionUID = 999175742470233017L;
 
     /**
-     *
+     *reason for the exception
      */
     public String reason;
 

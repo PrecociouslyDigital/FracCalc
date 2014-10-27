@@ -1,36 +1,14 @@
-package fraccalc.frontEnd;
+package fraccalc.backEnd;
 
-import java.util.Scanner;
-import fraccalc.backEnd.Fraction;
-import fraccalc.backEnd.NotAFractionException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Class for expression parsing.
+ *
+ * @author bendpalias
+ */
 public class Parser {
-
-    public static void main(String[] args) {
-        Scanner console = new Scanner(System.in);
-        String input;
-        Fraction output;
-        while (true) {
-            System.out.println("Please enter an expression: ");
-            input = console.nextLine();
-            if (input.compareToIgnoreCase("quit") == 0 || input.compareToIgnoreCase("exit") == 0) {
-                System.out.println("Bye!");
-                console.close();
-                System.exit(0);
-            } else if (input.compareToIgnoreCase("test") == 0) {
-                test();
-            } else {
-                output = parse(input);
-                if (output != null) {
-                    System.out.println(output.toString());
-                }
-            }
-
-        }
-
-    }
 
     /**
      * Parses then evaluates the string given, then returns it as a fraction
@@ -38,19 +16,19 @@ public class Parser {
      * The method puts together the processParentheses and evaluate methods and
      * handles some problems they have.
      *
-     * @param input The string to be parsed
+     * @param stringIn The string to be parsed
      * @return The fraction that is the evaluated expression
      * @see processParentheses
      * @see evaluate
      */
-    public static Fraction parse(String input) {
-        input = input.trim();
+    public static Fraction parse(String stringIn) {
+        stringIn = stringIn.trim();
         Fraction output = null;
         try {
-            if (input.indexOf('(') != -1) {
-                input = processParentheses(input);
+            if (stringIn.indexOf('(') != -1) {
+                stringIn = processParentheses(stringIn);
             }
-            output = evaluate(input);
+            output = evaluate(stringIn);
 
         } catch (NotAFractionException ex) {
             System.out.println(ex);
@@ -62,21 +40,21 @@ public class Parser {
     /**
      * Method that processes the parentheses in an expression
      *
-     * @param input
+     * @param stringIn
      * @return Expression with the parentheses evaluated
      * @throws NotAFractionException
      */
-    public static String processParentheses(String input) throws NotAFractionException {
+    public static String processParentheses(String stringIn) throws NotAFractionException {
         //input = input.replaceAll("\\s+","");
-        int openParentheses = input.indexOf("(");
+        int openParentheses = stringIn.indexOf("(");
         int closeParentheses = -1;
         String stored;
         //recursively getting rid of what's in parenthathes
         while (openParentheses != -1) {
             boolean found = false;
             int parenthesesCount = 1;
-            for (int i = openParentheses + 1; i < input.length(); i++) {
-                switch (input.charAt(i)) {
+            for (int i = openParentheses + 1; i < stringIn.length(); i++) {
+                switch (stringIn.charAt(i)) {
                     case '(':
                         parenthesesCount++;
                         break;
@@ -94,30 +72,30 @@ public class Parser {
 
             stored = "";
             if (openParentheses != 0) {
-                stored += input.substring(0, openParentheses);
+                stored += stringIn.substring(0, openParentheses);
             }
-            stored += parse(input.substring(openParentheses + 1, closeParentheses)).toString();
+            stored += parse(stringIn.substring(openParentheses + 1, closeParentheses)).toString();
             if (stored.isEmpty()) {
                 break;
             }
-            if (closeParentheses < input.length()) {
-                stored += input.substring(closeParentheses + 1);
+            if (closeParentheses < stringIn.length()) {
+                stored += stringIn.substring(closeParentheses + 1);
             }
-            input = stored;
-            openParentheses = input.indexOf("(");
+            stringIn = stored;
+            openParentheses = stringIn.indexOf("(");
         }
 
-        return input;
+        return stringIn;
     }
 
     /**
      * Evaluates an expression without parentheses
      *
-     * @param input
+     * @param stringIn
      * @return evaluated Fraction.
      */
-    public static Fraction evaluate(String input) {
-        ArrayList<String> expressions = new ArrayList<String>(Arrays.asList(input.split(" ")));
+    public static Fraction evaluate(String stringIn) {
+        ArrayList<String> expressions = new ArrayList<String>(Arrays.asList(stringIn.split(" ")));
         expressions.removeAll(Arrays.asList(null, ""));
         try {
             for (int i = 1; i < expressions.size() - 1; i += 2) {
@@ -190,7 +168,7 @@ public class Parser {
                 System.out.println("This isn't a valid expression");
                 return null;
             } else {
-                input = expressions.get(0);
+                stringIn = expressions.get(0);
             }
 
         } catch (NotAFractionException ex) {
@@ -198,7 +176,7 @@ public class Parser {
             return null;
         }
         try {
-            Fraction output = new Fraction(input);
+            Fraction output = new Fraction(stringIn);
             output.format();
             return output;
         } catch (NotAFractionException ex) {
@@ -210,22 +188,33 @@ public class Parser {
     /**
      * Runs all the tests for the fraction program.
      */
-    private static void test() {
+    public static void test() {
         //Some basic tests, to make sure fractions are being parsed correctly
         testAgainst("1", "1");
         testAgainst("0", "0");
         //Making sure basic operators are working
         testAgainst("1 + 2", "3");
         testAgainst("1_2/3 + 1_2/3", "3_1/3");
+        testAgainst("16/3 / 4/9", "12");
         //Making sure order of operations works
         testAgainst("1 + 2 * 2", "5");
         testAgainst("1/2 + 1/4 * 2", "1");
         //Making sure parentheses work
-        testAgainst("2 * (1 + 3)", "8");
+        testAgainst("2 * (1 - 3)", "-4");
         testAgainst("2_2/3 * (1/2 + 1_1/2)", "5_1/3");
         //Making sure nested parentheses work
         testAgainst("((1 + 3) * (1 + 2)) * 2", "24");
         testAgainst("((1_1/2 + 3_1/2) + (2_2/3 + 1_1/3)) * (2_2/3 - 2)", "6");
+        //Making sure negitives work
+        testAgainst("-2 * 4", "-8");
+        testAgainst("(-1_2/3 + 2) * -5/4", "-5/12");
+        //Making sure you can't divide by zero.
+        testAgainst("5 / 0", "Denominator is 0!");
+        testAgainst("1_2/0", "Denominator is 0!");
+        //Making sure invalid operations don't break the parser
+        testAgainst("1 + + 1/2", "This isn't a valid expression");
+        testAgainst("Hello world!", "This isn't a valid expression");
+        testAgainst("melon", "This isn't a fraction!");
     }
 
     /**
@@ -237,10 +226,16 @@ public class Parser {
      *
      */
     private static void testAgainst(String expression, String expected) {
-        if (!expected.equals(parse(expression).toString())) {
-            System.out.println("Evaluating " + expression + " failed! Returned " + parse(expression).toString());
-        } else {
+        System.out.println("Trying " + expression);
+        Fraction output = parse(expression);
+        if (output != null) {
+            if (!expected.equals(output.toString()))  {
+                System.out.println("Evaluating " + expression + " failed! Returned " + parse(expression).toString());
+            }else {
             System.out.println(expression + " evaluated correctly");
+        }
+        }else{
+            System.out.println(expression + " returned null.");
         }
     }
 }
