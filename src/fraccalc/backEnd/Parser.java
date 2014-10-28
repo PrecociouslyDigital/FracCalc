@@ -98,7 +98,7 @@ public class Parser {
         ArrayList<String> expressions = new ArrayList<String>(Arrays.asList(stringIn.split(" ")));
         expressions.removeAll(Arrays.asList(null, ""));
         try {
-            for (int i = 1; i < expressions.size() - 1; i += 2) {
+            for (byte i = 1; i < expressions.size() - 1; i += 2) {
                 while (true) {
                     if (expressions.get(i).equals("*")) {
                         expressions.add(i + 2, Fraction.multiply(new Fraction(expressions.get(i - 1)), new Fraction(expressions.get(i + 1))).toString());
@@ -205,7 +205,7 @@ public class Parser {
         //Making sure nested parentheses work
         testAgainst("((1 + 3) * (1 + 2)) * 2", "24");
         testAgainst("((1_1/2 + 3_1/2) + (2_2/3 + 1_1/3)) * (2_2/3 - 2)", "6");
-        //Making sure negitives work
+        //Making sure negatives work
         testAgainst("-2 * 4", "-8");
         testAgainst("(-1_2/3 + 2) * -5/4", "-5/12");
         //Making sure you can't divide by zero.
@@ -215,6 +215,7 @@ public class Parser {
         testAgainst("1 + + 1/2", "This isn't a valid expression");
         testAgainst("Hello world!", "This isn't a valid expression");
         testAgainst("melon", "This isn't a fraction!");
+        testAgainst("EXTERMINATE", "This isn't a fraction!");
     }
 
     /**
